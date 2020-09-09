@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>PerGO</title>
+</head>
+<body>
+        <header>
+            <h1 style="color:white;">PerGO</h1>
+        </header>
+        <form>
+        <div class="first-form">
+            <input type="text" class="todo-input" id="goal" name="goal" maxlength="100"/>
+            <button class="todo-button" type="submit">
+                <i class="fas fa-plus-square"></i>
+            </button>
+        </div>
+            <div class="select">
+                <select name="todos" class="filter-todo">
+                    <option value="none">Choose Type</option>
+                    <!-- <option value="completed">Completed</option>
+                    <option value="uncompleted">Uncompleted</option> -->
+                    <option value="day">Daily Goals</option>
+                    <option value="week">Weekly Goals</option>
+                    <option value="month">Monthly Goals</option>
+                    <option value="year">Yearly Goals</option>
+                    <option value="life">Life Goals</option>
+                </select>
+            </div>
+        </form>
+        <div class="todo-container">
+            <ul class="todo-list"></ul>  
+        </div>
+            
+            <div class="mews">
+          
+            </div>
+
+             <div class="loading">
+              <img src="loading.gif" alt="">
+            </div>
+        
+          
+
+
+    <script src="client.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
