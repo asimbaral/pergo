@@ -8,9 +8,13 @@ const app = express();
 
 //const db = monk('localhost/meower');
 //const db = monk('wet-owl-74.serverless.social/goals');
-//const db = https://wet-owl-74.serverless.social/
-const db = monk(process.env.MONGO_URI || 'localhost/update1');
-const likeDB = monk(process.env.MONGO_URI || 'localhost/two');
+//const db = https://wet-owl-74.serverless.social/ $ lt -h "http://serverless.social" -p 8080
+
+//urlStart = 'https://smooth-moth-60.serverless.social';
+urlStart = 'http://localhost:5000';
+
+const db = monk(process.env.MONGO_URI || `localhost/update1`);
+const likeDB = monk(process.env.MONGO_URI || `localhost/two`);
 const mews =  db.get('mews'); 
 const filter = new Filter();
 const likes = likeDB.get('likes');
