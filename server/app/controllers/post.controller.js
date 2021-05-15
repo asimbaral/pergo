@@ -54,6 +54,7 @@ exports.findAll = async (req, res) => {
     }
 };
 
+// Find specific post with id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -70,6 +71,7 @@ exports.findOne = (req, res) => {
     });
 }
 
+// Update post with specific id
 exports.update = (req, res) => {
     if (!req.body) {
         return res.status(400).send({
@@ -96,6 +98,7 @@ exports.update = (req, res) => {
         });
 };
 
+// Delete post with specific id
 exports.delete = (req, res) => {
     const id = req.params.id;
 
