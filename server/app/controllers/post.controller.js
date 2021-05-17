@@ -9,7 +9,8 @@ function isValidPost(post) {
 exports.create = (req, res) => {
     // Validate post
     if (!isValidPost(req.body)) {
-        res.status(400).send({ message: "The name or content can't be empry." });
+        res.status(400).send({ message: "The name or content can't be empty." });
+        console.log("post.controller.create: 400 error, The name or content can't be empty.");
         return;
     }
 
@@ -28,6 +29,7 @@ exports.create = (req, res) => {
             res.send(data);
         }).catch(err => {
             console.log(err.message);
+            console.log("post.controller.create: 500 error, ", err.message || "Failed to create post.");
             res.status(500).send({
                 message:
                     err.message || "Failed to create post."
@@ -47,6 +49,8 @@ exports.findAll = async (req, res) => {
         .skip((page - 1) * limit);
         res.send(postList);
     } catch (err) {
+        console.log("post.controller.findAll: 500 error, ", 
+            err.message || "There was an error with the get request for the posts");
         res.status(500).send({
             message:
                 err.message || "There was an error with the get request for the posts"
@@ -60,11 +64,13 @@ exports.findOne = (req, res) => {
 
     Post.findById(id).then(data => {
         if (!data) {
+            console.log("post.controller.findOne: 404 error, Not found Post with id " + id);
             res.status(404).send({ message: "Not found Post with id " + id });
         } else {
             res.send(data);
         }
     }).catch(err => {
+        console.log("post.controller.findOne: 500 error, Error retrieving Post with id=" + id);
         res
             .status(500)
             .send({ message: err.message } || { message: "Error retrieving Post with id=" + id});
@@ -74,6 +80,7 @@ exports.findOne = (req, res) => {
 // Update post with specific id
 exports.update = (req, res) => {
     if (!req.body) {
+        console.log("post.controller.update: 400 error, Data to update can't be empty!");
         return res.status(400).send({
             message: "Data to update can't be empty!"
         });
@@ -84,6 +91,7 @@ exports.update = (req, res) => {
     Post.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
             if (!data) {
+                console.log(`post.controller.update: Cannot update Post with id=${id}. Maybe Post was not found!`);
                 res.status(404).send({
                     message: `Cannot update Post with id=${id}. Maybe Post was not found!`
                 });
@@ -92,6 +100,7 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
+            console.log("post.controller.update: Error updating Post with id=" + id);
             res.status(500).send({
                 message: "Error updating Post with id=" + id
             });
@@ -105,6 +114,7 @@ exports.delete = (req, res) => {
     Post.findByIdAndRemove(id)
         .then(data => {
             if (!data) {
+                console.log(`post.controller.delete: Cannot delete Post with id=${id}. Maybe Post was not found!`);
                 res.status(400).send({
                     message: `Cannot delete Post with id=${id}. Maybe Post was not found!`
                 });
@@ -115,6 +125,7 @@ exports.delete = (req, res) => {
             }
         })
         .catch(err => {
+            console.log(`post.controller.delete: Could not delete Post with id=` + id);
             res.status(500).send({
                 message: "Could not delete Post with id=" + id
               });
