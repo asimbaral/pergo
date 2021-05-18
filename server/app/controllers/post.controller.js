@@ -23,7 +23,7 @@ exports.create = (req, res) => {
         hashtags: (req.body.content.toString()).match(/#\w+/g) || [],
         type: req.body.type || "Undefined",
         username: "",
-        commentCount: 0
+        shares: 0
     });
     console.log(req.body);
     pergoPost.save(pergoPost)

@@ -10,7 +10,7 @@ module.exports = mongoose => {
                 hashtags: Array,
                 type: String,
                 username: String,
-                commentCount: Number
+                shares: Number
             },
             { timestamps: true }
         )
