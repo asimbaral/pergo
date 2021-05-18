@@ -21,7 +21,9 @@ exports.create = (req, res) => {
         likes: 0,
         comments: [],
         hashtags: (req.body.content.toString()).match(/#\w+/g) || [],
-        type: req.body.type || "Undefined"
+        type: req.body.type || "Undefined",
+        username: "",
+        commentCount: 0
     });
     console.log(req.body);
     pergoPost.save(pergoPost)
@@ -79,6 +81,7 @@ exports.findOne = (req, res) => {
 
 // Update post with specific id
 exports.update = (req, res) => {
+    console.log("In update");
     if (!req.body) {
         console.log("post.controller.update: 400 error, Data to update can't be empty!");
         return res.status(400).send({

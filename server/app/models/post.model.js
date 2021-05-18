@@ -8,7 +8,9 @@ module.exports = mongoose => {
                 likes: Number,
                 comments: Array,
                 hashtags: Array,
-                type: String
+                type: String,
+                username: String,
+                commentCount: Number
             },
             { timestamps: true }
         )
