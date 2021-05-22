@@ -82,6 +82,7 @@ exports.findOne = (req, res) => {
 // Update post with specific id
 exports.update = (req, res) => {
     console.log("In update");
+    console.log(req.body);
     if (!req.body) {
         console.log("post.controller.update: 400 error, Data to update can't be empty!");
         return res.status(400).send({
@@ -91,7 +92,8 @@ exports.update = (req, res) => {
 
     const id = req.params.id;
 
-    Post.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    if (req.body.recentComment) {
+        Post.findByIdAndUpdate(id, {$push: {"comments": req.body.recentComment}}, { useFindAndModify: false })
         .then(data => {
             if (!data) {
                 console.log(`post.controller.update: Cannot update Post with id=${id}. Maybe Post was not found!`);
@@ -108,6 +110,27 @@ exports.update = (req, res) => {
                 message: "Error updating Post with id=" + id
             });
         });
+    } else {
+        Post.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                console.log(`post.controller.update: Cannot update Post with id=${id}. Maybe Post was not found!`);
+                res.status(404).send({
+                    message: `Cannot update Post with id=${id}. Maybe Post was not found!`
+                });
+            } else {
+                res.send({ message: "Post was updated successfully." })
+            }
+        })
+        .catch(err => {
+            console.log("post.controller.update: Error updating Post with id=" + id);
+            res.status(500).send({
+                message: "Error updating Post with id=" + id
+            });
+        });
+    }
+
+    
 };
 
 // Delete post with specific id
